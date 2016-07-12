@@ -1,0 +1,70 @@
+
+
+## implement the half adder and produce carry bits
+
+AND_gate<-function(a,b,carry_in){
+
+  (a&&b) | (carry_in&&(xor(a,b)))
+
+}
+
+XOR_gate<-function(a,b,carry_in){
+  
+  xor(xor(a,b),carry_in)  
+}
+
+
+
+
+## source("Gates.R")
+
+
+### create some objects to hold the carry bits 
+### and temp results
+
+n<-length(A)
+result<-numeric(n+1)
+carry_in<-numeric(n)
+carry_out<-numeric(n)
+
+
+
+ripple_carry<-function(A,B){
+
+#### handle the initial case with 0 bits carried in
+
+carry_in[n]<-0
+carry_out[n]<-AND_gate(A[n],B[n],carry_in[n])
+result[n+1]<-XOR_gate(A[n],B[n],carry_in[n])
+
+i=n-1
+ while(i>0){
+
+
+carry_in[i]<-carry_out[i+1]
+carry_out[i]<-  AND_gate(A[i],B[i],carry_in[i])
+result[i+1]<- XOR_gate(A[i],B[i],carry_in[i])
+
+i=i-1
+
+}
+
+
+if (i==0){
+  
+result[i+1]<-carry_out[i+1]
+}
+
+return(result)
+}
+
+### example
+A<-c(1,1,1)
+B<-c(1,1,1)
+
+ripple_carry(A,B)
+
+
+
+
+
