@@ -1,4 +1,4 @@
-
+#python 2
 import urllib2,cookielib #  resquest website
 import pandas as pd
 from bs4 import BeautifulSoup
